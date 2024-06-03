@@ -1,74 +1,99 @@
 package org.example.Controllers;
 
-import javafx.event.ActionEvent;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class MainPaneController {
-
-    @FXML
-    private AnchorPane mainPane;
-
-    @FXML
-    private Button nextSongButton;
-
-    @FXML
-    private Button pauseButton;
 
     @FXML
     private Button playButton;
 
     @FXML
-    private Button prevSongButton;
+    private Button pauseButton;
 
     @FXML
     private Button resetSongButton;
 
     @FXML
+    private Button prevSongButton;
+
+    @FXML
+    private Button nextSongButton;
+
+    @FXML
+    private ComboBox<Double> speedBox;
+
+
+    @FXML
     private Label songLabel;
 
     @FXML
-    private ProgressBar songProgresBar;
+    public void initialize() {
+        addScaleTransition(playButton);
+        addScaleTransition(pauseButton);
+        addScaleTransition(resetSongButton);
+        addScaleTransition(prevSongButton);
+        addScaleTransition(nextSongButton);
+
+        addPulsingEffect(songLabel);
+    }
+
+    private void addScaleTransition(Button button) {
+        button.setOnMousePressed(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);
+            scaleTransition.setToX(0.9);
+            scaleTransition.setToY(0.9);
+            scaleTransition.playFromStart();
+        });
+
+        button.setOnMouseReleased(event -> {
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), button);
+            scaleTransition.setToX(1.0);
+            scaleTransition.setToY(1.0);
+            scaleTransition.playFromStart();
+        });
+    }
+
+    private void addPulsingEffect(Label label) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), label);
+        scaleTransition.setToX(1.1);
+        scaleTransition.setToY(1.1);
+        scaleTransition.setCycleCount(ScaleTransition.INDEFINITE);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.play();
+    }
 
     @FXML
-    private ComboBox<?> speedBox;
-
-    @FXML
-    private Slider volumeSlider;
-
-    @FXML
-    void changeSpeed(ActionEvent event) {
+    private void playSong() {
 
     }
 
     @FXML
-    void pauseSong(ActionEvent event) {
+    private void pauseSong() {
 
     }
 
     @FXML
-    void playNextSong(ActionEvent event) {
+    private void resetSong() {
 
     }
 
     @FXML
-    void playPrevSong(ActionEvent event) {
+    private void playPrevSong() {
+        // Kod obsługi przycisku Prev
+    }
+
+    @FXML
+    private void playNextSong() {
 
     }
 
     @FXML
-    void playSong(ActionEvent event) {
+    private void changeSpeed() {
 
     }
-
-    @FXML
-    void resetSong(ActionEvent event) {
-
-    }
-
 }
